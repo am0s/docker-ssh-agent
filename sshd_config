@@ -1,0 +1,22 @@
+
+# Enable public keys and agent forwarding
+AllowAgentForwarding yes
+AllowTcpForwarding yes
+AllowStreamLocalForwarding yes
+PubkeyAuthentication yes
+
+#PasswordAuthentication no
+#PermitEmptyPasswords no
+
+PermitRootLogin yes
+PasswordAuthentication yes
+PermitEmptyPasswords yes
+
+X11Forwarding yes
+X11DisplayOffset 10
+PrintMotd no
+TCPKeepAlive yes
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+

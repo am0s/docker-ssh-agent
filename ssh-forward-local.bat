@@ -32,12 +32,29 @@ IF "%IP%"=="0.0.0.0" SET IP="localhost"
 echo Local IP=%IP%
 ssh-keyscan -p %LOCAL_PORT% %IP%
 
+echo Starting agent forwarding by ssh'ing into container
+echo When starting other docker containers either use
+echo.
+echo docker CLI arguments:
+echo   -v %VOLUME_NAME%:/docker-ssh -e "SSH_AUTH_SOCK=/docker-ssh/ssh-agent_socket"
+echo.
+echo docker-compose.yml:
+echo services:
+echo <name-of-service>:
+echo     environment:
+echo       - "SSH_AUTH_SOCK=/docker-ssh/ssh-agent_socket"
+echo     volumes:
+echo       - ssh-agent:/docker-ssh
+echo.
+echo volumes:
+echo   ssh-agent:
+echo     external: true
+echo     name: "%VOLUME_NAME%"
+echo.
+
 ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" ^
   -A -p %LOCAL_PORT% root@%IP% ^
   /root/ssh-forward-agent.sh || goto :error
-
-echo 'Agent forwarding successfully started.'
-echo "Use -v %VOLUME_NAME%:/docker-ssh when starting docker containers"
 
 exit /b
 

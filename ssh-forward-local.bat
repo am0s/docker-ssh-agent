@@ -40,7 +40,7 @@ echo   -v %VOLUME_NAME%:/docker-ssh -e "SSH_AUTH_SOCK=/docker-ssh/ssh-agent_sock
 echo.
 echo docker-compose.yml:
 echo services:
-echo <name-of-service>:
+echo   name-of-service:
 echo     environment:
 echo       - "SSH_AUTH_SOCK=/docker-ssh/ssh-agent_socket"
 echo     volumes:
